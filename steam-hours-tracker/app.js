@@ -42,12 +42,20 @@ async function fetchUserGames() {
 function updateGamesList() {
     const gamesListElement = document.getElementById('gamesList');
     gamesListElement.innerHTML = '';
-
     const filteredGames = window.gamesList.filter(game => !hideUnplayed || game.playtime_forever > 0);
 
     filteredGames.forEach(game => {
         const li = document.createElement('li');
-        li.textContent = `${game.name}: ${(game.playtime_forever / 60).toFixed(2)} hours`;
+        const gameNameSpan = document.createElement('span');
+        gameNameSpan.className = 'game-name';
+        gameNameSpan.textContent = game.name;
+        
+        const gameHoursSpan = document.createElement('span');
+        gameHoursSpan.className = 'game-hours';
+        gameHoursSpan.textContent = `${(game.playtime_forever / 60).toFixed(2)} hours`;
+        
+        li.appendChild(gameNameSpan);
+        li.appendChild(gameHoursSpan);
         gamesListElement.appendChild(li);
     });
 }
