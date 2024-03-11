@@ -1,16 +1,12 @@
 document.getElementById('fetchPlaytimeButton').addEventListener('click', fetchUserGames);
 let hideUnplayed = false;
 
-document.getElementById('toggleUnplayedButton').addEventListener('click', () => {
-    hideUnplayed = !hideUnplayed;
-    updateGamesList();
-});
-
 async function fetchUserGames() {
     const steamId = document.getElementById('steamIdInput').value;
     const errorContainer = document.getElementById('errorContainer');
     const statsContainer = document.getElementById('statsContainer');
     const gamesListElement = document.getElementById('gamesList');
+    const viewUnplayedButton = document.getElementById('viewUnplayedButton');
     errorContainer.textContent = '';
     errorContainer.style.display = 'none';
 
@@ -47,6 +43,7 @@ async function fetchUserGames() {
         window.gamesList = games;
         updateGamesList();
         statsContainer.style.display = 'flex';
+        viewUnplayedButton.style.display = 'block';
     } catch (error) {
         console.error('Error fetching data:', error);
         errorContainer.textContent = `An error occurred: ${error.message}`;
@@ -77,3 +74,9 @@ function updateGamesList() {
         gamesListElement.appendChild(li);
     });
 }
+
+viewUnplayedButton.addEventListener('click', () => {
+    const unplayedGames = window.gamesList.filter(game => game.playtime_forever === 0);
+    localStorage.setItem('unplayedGames', JSON.stringify(unplayedGames));
+    window.location.href = 'unplayedGames.html'; 
+});
