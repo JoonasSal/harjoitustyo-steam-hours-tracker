@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Hours Tracker</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .stats-container { margin-top: 20px; }
+        .error-message { color: #ff0000; }
+    </style>
+</head>
+<body>
+    <h1>Steam Hours Tracker</h1>
+    <input type="text" id="steamIdInput" placeholder="Enter Steam ID">
+    <button id="fetchPlaytimeButton">Fetch Playtime</button>
+    <button id="toggleUnplayedButton">Hide Unplayed Games</button>
+    <div id="errorContainer" class="error-message"></div>
+    <div id="statsContainer" class="stats-container">
+        <div>Total playtime: <span id="totalPlaytime"></span> hours</div>
+        <div>Played games: <span id="playedGamesCount"></span></div>
+        <div>Unplayed games: <span id="unplayedGamesCount"></span></div>
+        <div>Total games in library: <span id="totalGamesCount"></span></div>
+    </div>
+    <ul id="gamesList"></ul>
+
+    <script src="app.js"></script>
+</body>
+</html>
