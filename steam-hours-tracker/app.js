@@ -12,24 +12,24 @@ async function fetchUserGames() {
 
 
     statsContainer.style.display = 'none';
-    gamesListElement.innerHTML = ''; 
+    gamesListElement.innerHTML = '';
 
     if (!steamId) {
         errorContainer.textContent = 'Please enter a Steam ID';
         errorContainer.style.display = 'block';
         return;
     }
-    
+
     try {
         const response = await fetch(`http://localhost:3000/fetchSteamData?steamid=${steamId}`);
         if (!response.ok) throw new Error(`Data fetch failed with status ${response.status}`);
         const data = await response.json();
 
         if (!data.response.games) {
-            throw new Error('No games found for this Steam ID'); 
+            throw new Error('No games found for this Steam ID');
         }
-        
-     
+
+
         const games = data.response.games.sort((a, b) => b.playtime_forever - a.playtime_forever);
         const totalPlaytime = games.reduce((acc, game) => acc + game.playtime_forever, 0) / 60;
         const playedGamesCount = games.filter(game => game.playtime_forever > 0).length;
@@ -78,5 +78,5 @@ function updateGamesList() {
 viewUnplayedButton.addEventListener('click', () => {
     const unplayedGames = window.gamesList.filter(game => game.playtime_forever === 0);
     localStorage.setItem('unplayedGames', JSON.stringify(unplayedGames));
-    window.location.href = 'unplayedGames.html'; 
+    window.location.href = 'unplayedGames.html';
 });

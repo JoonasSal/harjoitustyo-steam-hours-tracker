@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam Hours Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <h1>Steam Hours Tracker</h1>
     <input type="text" id="steamIdInput" placeholder="Enter Steam ID">
@@ -13,13 +15,18 @@
     <button id="viewUnplayedButton" style="display:none;">Unplayed Games</button>
     <div id="errorContainer" class="error-message"></div>
     <div id="statsContainer" class="stats-container">
-        <div>Total playtime: <span class="stats-label"></span><span id="totalPlaytime" class="stats-value"></span> hours</div>
-        <div>Played games: <span class="stats-label"></span><span id="playedGamesCount" class="stats-value"></span></div>
-        <div>Unplayed games: <span class="stats-label"></span><span id="unplayedGamesCount" class="stats-value"></span></div>
-        <div>Total games in library: <span class="stats-label"></span><span id="totalGamesCount" class="stats-value"></span></div>
+        <div>Total playtime: <span class="stats-label"></span><span id="totalPlaytime" class="stats-value"></span> hours
+        </div>
+        <div>Played games: <span class="stats-label"></span><span id="playedGamesCount" class="stats-value"></span>
+        </div>
+        <div>Unplayed games: <span class="stats-label"></span><span id="unplayedGamesCount" class="stats-value"></span>
+        </div>
+        <div>Total games in library: <span class="stats-label"></span><span id="totalGamesCount"
+                class="stats-value"></span></div>
     </div>
     <ul id="gamesList"></ul>
 
     <script src="app.js"></script>
 </body>
+
 </html>
