@@ -8,13 +8,15 @@ document.getElementById('toggleUnplayedButton').addEventListener('click', () => 
 
 async function fetchUserGames() {
     const steamId = document.getElementById('steamIdInput').value;
-    if (!steamId) {
-        alert('Please enter a Steam ID');
-        return;
-    }
-    
     const errorContainer = document.getElementById('errorContainer');
     errorContainer.textContent = '';
+    errorContainer.style.display = 'none';
+
+    if (!steamId) {
+        errorContainer.textContent = 'Please enter a Steam ID';
+        errorContainer.style.display = 'block';
+        return;
+    }
     
     try {
         const response = await fetch(`http://localhost:3000/fetchSteamData?steamid=${steamId}`);
@@ -36,12 +38,14 @@ async function fetchUserGames() {
     } catch (error) {
         console.error('Error fetching data:', error);
         errorContainer.textContent = `An error occurred: ${error.message}`;
+        errorContainer.style.display = 'block';
     }
 }
 
 function updateGamesList() {
     const gamesListElement = document.getElementById('gamesList');
     gamesListElement.innerHTML = '';
+
     const filteredGames = window.gamesList.filter(game => !hideUnplayed || game.playtime_forever > 0);
 
     filteredGames.forEach(game => {

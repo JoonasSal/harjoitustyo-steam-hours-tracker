@@ -1,6 +1,6 @@
 body {
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #171a21;
+    color: #c6c8d0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px;
     max-width: 800px;
@@ -15,22 +15,24 @@ body {
     font-size: 16px;
     padding: 10px;
     margin: 10px 5px;
-    border: 1px solid #ddd;
+    background-color: #2a475e;
+    border: 1px solid #ffffff;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
   
   button {
-    background-color: #007BFF;
+    background-color: #2a475e;
     color: white;
     cursor: pointer;
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #466600;
   }
   
   .error-message {
+    display: none; 
     color: #D8000C;
     background-color: #FFD2D2;
     padding: 10px;
@@ -39,7 +41,7 @@ body {
   }
   
   .stats-container {
-    background-color: white;
+    background-color: #2a475e;
     padding: 20px;
     margin: 20px 0;
     border-radius: 8px;
@@ -56,7 +58,7 @@ body {
   }
   
   li {
-    background-color: #fff;
+    background-color: #2a475e;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
