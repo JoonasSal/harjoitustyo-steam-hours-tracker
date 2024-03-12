@@ -23,6 +23,20 @@ app.get('/fetchSteamData', async (req, res) => {
   }
 });
 
+app.get('/gameDetails/:appId', async (req, res) => {
+  const appId = req.params.appId;
+  const url = `https://store.steampowered.com/api/appdetails?appids=${appId}`;
+
+  try {
+      const apiResponse = await fetch(url);
+      const data = await apiResponse.json();
+      res.json(data[appId]);
+  } catch (error) {
+      console.error('Error fetching game details from Steam:', error);
+      res.status(500).send(error.toString());
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });

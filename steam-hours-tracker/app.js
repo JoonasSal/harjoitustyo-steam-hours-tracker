@@ -57,9 +57,7 @@ function updateGamesList() {
     const gamesListElement = document.getElementById('gamesList');
     gamesListElement.innerHTML = '';
 
-    const filteredGames = window.gamesList.filter(game => !hideUnplayed || game.playtime_forever > 0);
-
-    filteredGames.forEach(game => {
+    window.gamesList.filter(game => !hideUnplayed || game.playtime_forever > 0).forEach(game => {
         const li = document.createElement('li');
         const gameNameSpan = document.createElement('span');
         gameNameSpan.className = 'game-name';
@@ -71,9 +69,47 @@ function updateGamesList() {
 
         li.appendChild(gameNameSpan);
         li.appendChild(gameHoursSpan);
+
+        li.setAttribute('data-appid', game.appid);
+
+        li.addEventListener('click', () => {
+            const appId = game.appid;
+            fetchGameDetails(appId);
+        });
+
         gamesListElement.appendChild(li);
     });
 }
+
+async function fetchGameDetails(appId) {
+    try {
+        const response = await fetch(`http://localhost:3000/gameDetails/${appId}`);
+        if (!response.ok) throw new Error('Failed to fetch game details');
+        const gameDetails = await response.json();
+        displayGameDetails(gameDetails);
+    } catch (error) {
+        console.error('Error fetching game details:', error);
+    }
+}
+
+function displayGameDetails(details) {
+    const gameDetailsModal = document.getElementById('gameDetailsModal');
+    const gameTitle = document.getElementById('gameTitle');
+    const gameDescription = document.getElementById('gameDescription');
+    const gameReleaseDate = document.getElementById('gameReleaseDate');
+    const gameReviewScore = document.getElementById('gameReviewScore');
+
+    gameTitle.textContent = details.data.name;
+    gameDescription.innerHTML = details.data.short_description;
+    gameReleaseDate.textContent = "Release Date: " + details.data.release_date.date;
+    gameReviewScore.textContent = "Recommendations: " + details.data.recommendations.total;
+
+    gameDetailsModal.style.display = 'block';
+}
+
+document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('gameDetailsModal').style.display = 'none';
+});
 
 viewUnplayedButton.addEventListener('click', () => {
     const unplayedGames = window.gamesList.filter(game => game.playtime_forever === 0);
