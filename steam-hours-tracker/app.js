@@ -1,7 +1,18 @@
 document.getElementById('fetchPlaytimeButton').addEventListener('click', fetchUserGames);
 let hideUnplayed = false;
 
-async function fetchUserGames() {
+document.addEventListener('DOMContentLoaded', () => {
+    const sessionSteamId = sessionStorage.getItem('sessionSteamId');
+    if (sessionSteamId) {
+        document.getElementById('steamIdInput').value = sessionSteamId;
+    }
+
+    if (sessionStorage.getItem('fetchPerformed') === 'true') {
+        fetchUserGames(true);
+    }
+});
+
+async function fetchUserGames(isPageReload = false) {
     const steamId = document.getElementById('steamIdInput').value;
     const errorContainer = document.getElementById('errorContainer');
     const statsContainer = document.getElementById('statsContainer');
@@ -9,49 +20,61 @@ async function fetchUserGames() {
     const viewUnplayedButton = document.getElementById('viewUnplayedButton');
     errorContainer.textContent = '';
     errorContainer.style.display = 'none';
-    viewUnplayedButton.style.display = 'none';
 
+    sessionStorage.setItem('sessionSteamId', steamId);
 
-    statsContainer.style.display = 'none';
-    gamesListElement.innerHTML = '';
-
-    if (!steamId) {
+    let finalSteamId = steamId || localStorage.getItem('savedSteamId');
+    if (!finalSteamId) {
         errorContainer.textContent = 'Please enter a Steam ID';
         errorContainer.style.display = 'block';
         return;
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/fetchSteamData?steamid=${steamId}`);
-        if (!response.ok) throw new Error(`Data fetch failed with status ${response.status}`);
-        const data = await response.json();
+        let games = JSON.parse(localStorage.getItem('gamesList'));
 
-        if (!data.response.games) {
-            throw new Error('No games found for this Steam ID');
+        if (!games || steamId) {
+            const response = await fetch(`http://localhost:3000/fetchSteamData?steamid=${finalSteamId}`);
+            if (!response.ok) throw new Error(`Data fetch failed with status ${response.status}`);
+            const data = await response.json();
+
+            if (!data.response.games) {
+                throw new Error('No games found for this Steam ID');
+            }
+
+            games = data.response.games.sort((a, b) => b.playtime_forever - a.playtime_forever);
+            localStorage.setItem('gamesList', JSON.stringify(games));
+            localStorage.setItem('savedSteamId', finalSteamId);
         }
 
-
-        const games = data.response.games.sort((a, b) => b.playtime_forever - a.playtime_forever);
-        const totalPlaytime = games.reduce((acc, game) => acc + game.playtime_forever, 0) / 60;
-        const playedGamesCount = games.filter(game => game.playtime_forever > 0).length;
-        const unplayedGamesCount = games.length - playedGamesCount;
-
-        document.getElementById('totalPlaytime').textContent = totalPlaytime.toFixed(2);
-        document.getElementById('playedGamesCount').textContent = playedGamesCount;
-        document.getElementById('unplayedGamesCount').textContent = unplayedGamesCount;
-        document.getElementById('totalGamesCount').textContent = games.length;
-
-        window.gamesList = games;
-        updateGamesList();
-        statsContainer.style.display = 'flex';
-        viewUnplayedButton.style.display = 'block';
+        displayGameData(games);
     } catch (error) {
         console.error('Error fetching data:', error);
         errorContainer.textContent = `An error occurred: ${error.message}`;
         errorContainer.style.display = 'block';
-        statsContainer.style.display = 'none';
-        gamesListElement.innerHTML = '';
     }
+}
+
+function displayGameData(games) {
+    const statsContainer = document.getElementById('statsContainer');
+    const gamesListElement = document.getElementById('gamesList');
+    const viewUnplayedButton = document.getElementById('viewUnplayedButton');
+
+    const totalPlaytime = games.reduce((acc, game) => acc + game.playtime_forever, 0) / 60;
+    const playedGamesCount = games.filter(game => game.playtime_forever > 0).length;
+    const unplayedGamesCount = games.length - playedGamesCount;
+
+    document.getElementById('totalPlaytime').textContent = totalPlaytime.toFixed(2);
+    document.getElementById('playedGamesCount').textContent = playedGamesCount;
+    document.getElementById('unplayedGamesCount').textContent = unplayedGamesCount;
+    document.getElementById('totalGamesCount').textContent = games.length;
+
+    window.gamesList = games;
+    updateGamesList();
+    statsContainer.style.display = 'flex';
+    viewUnplayedButton.style.display = 'block';
+
+    sessionStorage.setItem('fetchPerformed', 'true');
 }
 
 function updateGamesList() {
