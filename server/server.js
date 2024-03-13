@@ -25,7 +25,7 @@ app.get('/fetchSteamData', async (req, res) => {
 
 app.get('/gameDetails/:appId', async (req, res) => {
   const appId = req.params.appId;
-  const url = `https://store.steampowered.com/api/appdetails?appids=${appId}`;
+  const url = `https://store.steampowered.com/api/appdetails?appids=${appId}&l=english`;
 
   try {
       const apiResponse = await fetch(url);
