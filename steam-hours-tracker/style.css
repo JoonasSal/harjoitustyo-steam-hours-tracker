@@ -92,23 +92,54 @@ li span {
 
 .modal-content {
   background-color: #2a475e;
-  margin: 15% auto;
-  padding: 20px;
+  margin: 5% auto;
+  padding: 25px;
   border: 1px solid #2a475e;
-  width: 80%;
+  width: 60%; /* Säädä leveyttä haluamallasi tavalla */
+  max-width: 700px; /* Aseta maksimileveys */
   border-radius: 5px;
+  display: flex;
+  flex-direction: column; /* Muuta suuntaa pystysuuntaiseksi */
+  align-items: left; /* Keskitä sisältö */
+  position: relative; /* Lisätty suhteellinen sijoittelu */
 }
 
 .close {
+  position: absolute; /* Absoluuttinen sijoittelu */
+  top: 0px; /* Sijoitetaan yläreunaan */
+  right: 5px; /* Sijoitetaan oikeaan reunaan */
   color: #aaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
-  cursor: pointer;
+}
+
+.game-image-container {
+  width: 100%; /* Aseta leveys */
+  display: flex;
+  justify-content: center; /* Keskelle */
+}
+
+img#gameImage {
+  max-height: 300px; /* Säädä korkeutta */
+  width: auto; /* Säilytä kuvasuhde */
+  max-width: 100%; /* Varmista, ettei ylitä kontin leveyttä */
+  border-radius: 5px; /* Pyöristetyt kulmat */
+}
+
+.game-details-container {
+  width: 100%; /* Aseta leveys */
+  padding-top: 10px; /* Lisää tilaa kuvan ja tekstin välille */
+}
+
+#viewUnplayedButton {
+  display: none; /* Muuttaa napin block-elementiksi, jolloin se voi venyä */
+  width: calc(100% - 22px); /* Vähennetään padding ja border kokonaisleveydestä */
+  box-sizing: border-box; /* Varmistetaan, että padding ja border sisältyvät leveyteen */
 }

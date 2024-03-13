@@ -94,11 +94,13 @@ async function fetchGameDetails(appId) {
 
 function displayGameDetails(details) {
     const gameDetailsModal = document.getElementById('gameDetailsModal');
+    const gameImage = document.getElementById('gameImage');
     const gameTitle = document.getElementById('gameTitle');
     const gameDescription = document.getElementById('gameDescription');
     const gameReleaseDate = document.getElementById('gameReleaseDate');
     const gameReviewScore = document.getElementById('gameReviewScore');
 
+    gameImage.src = details.data.header_image;
     gameTitle.textContent = details.data.name;
     gameDescription.innerHTML = details.data.short_description;
     gameReleaseDate.textContent = "Release Date: " + details.data.release_date.date;
