@@ -9,6 +9,7 @@ async function fetchUserGames() {
     const viewUnplayedButton = document.getElementById('viewUnplayedButton');
     errorContainer.textContent = '';
     errorContainer.style.display = 'none';
+    viewUnplayedButton.style.display = 'none';
 
 
     statsContainer.style.display = 'none';

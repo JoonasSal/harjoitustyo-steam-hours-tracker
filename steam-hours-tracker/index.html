@@ -10,8 +10,10 @@
 
 <body>
     <h1>Steam Hours Tracker</h1>
-    <input type="text" id="steamIdInput" placeholder="Enter Steam ID">
-    <button id="fetchPlaytimeButton">Fetch Playtime</button>
+    <div class="form-container">
+        <input type="text" id="steamIdInput" placeholder="Enter Steam ID">
+        <button id="fetchPlaytimeButton">Fetch Playtime</button>
+    </div>
     <button id="viewUnplayedButton" style="display:none;">Enter Unplayed Games Graveyard</button>
     <div id="errorContainer" class="error-message"></div>
     <div id="statsContainer" class="stats-container">
@@ -26,16 +28,16 @@
     </div>
     <ul id="gamesList"></ul>
 
-<div id="gameDetailsModal" class="modal" style="display:none;">
-    <div class="modal-content">
-        <span id="closeModal" class="close">&times;</span>
-        <img id="gameImage" src="" alt="Game header image">
-        <h2 id="gameTitle"></h2>
-        <p id="gameDescription"></p>
-        <p id="gameReleaseDate"></p>
-        <p id="gameReviewScore"></p>
+    <div id="gameDetailsModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <img id="gameImage" src="" alt="Game header image">
+            <h2 id="gameTitle"></h2>
+            <p id="gameDescription"></p>
+            <p id="gameReleaseDate"></p>
+            <p id="gameReviewScore"></p>
+        </div>
     </div>
-</div>
 
     <script src="app.js"></script>
 </body>
