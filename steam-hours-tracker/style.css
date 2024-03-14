@@ -8,6 +8,7 @@
   --error-text-color: #D8000C;
   --modal-background-color: rgba(0, 0, 0, 0.4);
   --stats-background-color: #2a475e;
+  --modal-content-background-color: #131e29ee;
 }
 
 body {
@@ -99,10 +100,10 @@ li {
 }
 
 .modal-content {
-  background-color: var(--stats-background-color);
+  background-color: var(--modal-content-background-color);
   margin: 5% auto;
   padding: 25px;
-  border: 1px solid var(--stats-background-color);
+  border: 1px solid var(--modal-content-background-color);
   width: 60%;
   max-width: 700px;
   border-radius: 5px;
@@ -110,6 +111,16 @@ li {
   flex-direction: column;
   align-items: left;
   position: relative;
+}
+
+.modal-content h3,
+.modal-content p {
+  margin: 5px 0;
+  padding: 0; 
+}
+
+.modal-content img {
+  margin-bottom: 10px;
 }
 
 .close {
