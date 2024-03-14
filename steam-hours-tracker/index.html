@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steam Hours Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h1>Steam Hours Tracker</h1>
-    <div class="form-container">
-        <input type="text" id="steamIdInput" placeholder="Enter Steam ID">
-        <button id="fetchPlaytimeButton">Fetch Playtime</button>
-    </div>
-    <button id="viewUnplayedButton" style="display:none;">Enter Unplayed Games Graveyard</button>
-    <div id="errorContainer" class="error-message"></div>
-    <div id="statsContainer" class="stats-container">
-        <div>Total playtime: <span class="stats-label"></span><span id="totalPlaytime" class="stats-value"></span> hours
-        </div>
-        <div>Played games: <span class="stats-label"></span><span id="playedGamesCount" class="stats-value"></span>
-        </div>
-        <div>Unplayed games: <span class="stats-label"></span><span id="unplayedGamesCount" class="stats-value"></span>
-        </div>
-        <div>Total games in library: <span class="stats-label"></span><span id="totalGamesCount"
-                class="stats-value"></span></div>
-    </div>
-    <ul id="gamesList"></ul>
-
-    <div id="gameDetailsModal" class="modal" style="display:none;">
+    <main>
+        <h1>Steam Hours Tracker</h1>
+        <section class="form-container">
+            <input type="text" id="steamIdInput" placeholder="Enter Steam ID">
+            <button id="fetchPlaytimeButton">Fetch Games & Playtime</button>
+        </section>
+        <button id="viewUnplayedButton" class="hidden">Enter Unplayed Games Graveyard</button>
+        <div id="errorContainer" class="error-message hidden"></div>
+        <section id="statsContainer" class="stats-container hidden">
+            <div>Total playtime: <span id="totalPlaytime" class="stats-value"></span> hours</div>
+            <div>Played games: <span id="playedGamesCount" class="stats-value"></span></div>
+            <div>Unplayed games: <span id="unplayedGamesCount" class="stats-value"></span></div>
+            <div>Total games in library: <span id="totalGamesCount" class="stats-value"></span></div>
+        </section>
+        <ul id="gamesList"></ul>
+    </main>
+    <aside id="gameDetailsModal" class="modal hidden">
         <div class="modal-content">
             <span id="closeModal" class="close">&times;</span>
             <img id="gameImage" src="" alt="Game header image">
@@ -37,9 +32,7 @@
             <p id="gameReleaseDate"></p>
             <p id="gameReviewScore"></p>
         </div>
-    </div>
-
+    </aside>
     <script src="app.js"></script>
 </body>
-
 </html>
