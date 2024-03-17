@@ -30,15 +30,15 @@ async function fetchUserGames(isPageReload = false) {
     sessionStorage.setItem('sessionSteamId', steamId);
 
     // Valmistellaan Steam ID hakuun.
-    let finalSteamId = steamId || localStorage.getItem('savedSteamId');
+    let finalSteamId = steamId || sessionStorage.getItem('savedSteamId');
     if (!finalSteamId) {
         showError('Please enter a Steam ID');
         return;
     }
 
     try {
-        // Yritetään hakea pelit localStoragesta tai API-kutsulla.
-        let games = JSON.parse(localStorage.getItem('gamesList'));
+        // Yritetään hakea pelit sessionStoragesta tai API-kutsulla.
+        let games = JSON.parse(sessionStorage.getItem('gamesList'));
         if (!games || steamId) {
             const response = await fetch(`http://localhost:3000/fetchSteamData?steamid=${finalSteamId}`);
             if (!response.ok) throw new Error(`Data fetch failed with status ${response.status}`);
@@ -46,8 +46,8 @@ async function fetchUserGames(isPageReload = false) {
             if (!data.response.games) throw new Error('No games found for this Steam ID');
 
             games = data.response.games.sort((a, b) => b.playtime_forever - a.playtime_forever);
-            localStorage.setItem('gamesList', JSON.stringify(games));
-            localStorage.setItem('savedSteamId', finalSteamId);
+            sessionStorage.setItem('gamesList', JSON.stringify(games));
+            sessionStorage.setItem('savedSteamId', finalSteamId);
         }
 
         // Näytetään haetut pelitiedot.
@@ -150,6 +150,6 @@ document.getElementById('closeModal').addEventListener('click', () => {
 // Hallinnoi pelaamattomien pelien listan näyttämistä.
 document.getElementById('viewUnplayedButton').addEventListener('click', () => {
     const unplayedGames = window.gamesList.filter(game => game.playtime_forever === 0);
-    localStorage.setItem('unplayedGames', JSON.stringify(unplayedGames));
+    sessionStorage.setItem('unplayedGames', JSON.stringify(unplayedGames));
     window.location.href = 'unplayedGames.html';
 });

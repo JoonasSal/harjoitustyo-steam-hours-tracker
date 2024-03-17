@@ -2,8 +2,8 @@
 document.addEventListener('DOMContentLoaded', initializeUnplayedGamesList);
 
 async function initializeUnplayedGamesList() {
-    // Haetaan pelaamattomien pelien lista localStoragesta ja näytetään lista.
-    const games = JSON.parse(localStorage.getItem('unplayedGames') || '[]');
+    // Haetaan pelaamattomien pelien lista sessionStoragesta ja näytetään lista.
+    const games = JSON.parse(sessionStorage.getItem('unplayedGames') || '[]');
     const list = document.getElementById('unplayedGamesList');
     games.forEach(game => {
         const li = document.createElement('li');
