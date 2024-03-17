@@ -49,7 +49,7 @@ The server will run on http://localhost:3000. You can now open the index.html fi
 
 ## Usage
 
-- Enter your Steam ID in the input field on the homepage and click "Fetch Games & Playtime" to view your game library and total playtime.
+- Enter your Steam ID (in DEC format ex. 12345678912345678) in the input field on the homepage and click "Fetch Games & Playtime" to view your game library and total playtime.
 - Navigate to the Unplayed Games page to see a list of games you haven't played yet.
 - Click on any game in the list to view more detailed information about it.
 - Let fate decide which unplayed game you should save from the graveyard.
